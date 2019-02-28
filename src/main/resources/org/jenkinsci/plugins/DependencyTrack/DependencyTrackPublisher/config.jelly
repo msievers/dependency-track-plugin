@@ -20,6 +20,14 @@ limitations under the License.
         <f:select id="projectId"/>
     </f:entry>
 
+    <f:entry title="${%myName}" field="myName" help="/plugin/dependency-track/help-dt-artifact.html">
+        <f:textbox id="myName"/>
+    </f:entry>
+
+    <f:entry title="${%myVersion}" field="myVersion" help="/plugin/dependency-track/help-dt-artifact.html">
+        <f:textbox id="myVersion"/>
+    </f:entry>
+
     <f:entry title="${%artifact}" field="artifact" help="/plugin/dependency-track/help-dt-artifact.html">
         <f:textbox id="artifact"/>
     </f:entry>

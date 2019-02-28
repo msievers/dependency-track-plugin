@@ -60,6 +60,8 @@ public class DependencyTrackPublisher extends ThresholdCapablePublisher implemen
     private String projectId;
     private String projectName;
     private String projectVersion;
+    private final String myName;
+    private final String myVersion;
     private final String artifact;
     private final String artifactType;
     private final boolean isScanResult;
@@ -67,7 +69,9 @@ public class DependencyTrackPublisher extends ThresholdCapablePublisher implemen
 
     // Fields in config.jelly must match the parameter names
     @DataBoundConstructor
-    public DependencyTrackPublisher(final String artifact, final String artifactType, final boolean synchronous) {
+    public DependencyTrackPublisher(final String myName, final String myVersion, final String artifact, final String artifactType, final boolean synchronous) {
+        this.myName = myName;
+        this.myVersion = myVersion;
         this.artifact = artifact;
         this.artifactType = artifactType;
         this.isScanResult = artifactType == null || !"bom".equals(artifactType);
@@ -117,6 +121,14 @@ public class DependencyTrackPublisher extends ThresholdCapablePublisher implemen
      */
     public String getArtifact() {
         return artifact;
+    }
+
+    public String getMyName() {
+        return myName;
+    }
+
+    public String getMyVersion() {
+        return myVersion;
     }
 
     /**
@@ -174,6 +186,10 @@ public class DependencyTrackPublisher extends ThresholdCapablePublisher implemen
 
         final String projectId = build.getEnvironment(listener).expand(this.projectId);
         final String artifact = build.getEnvironment(listener).expand(this.artifact);
+
+        final String myName = build.getEnvironment(listener).expand(this.myName);
+        final String myVersion = build.getEnvironment(listener).expand(this.myVersion);
+
         final boolean autoCreateProject = getDescriptor().isDependencyTrackAutoCreateProjects();
 
         if (StringUtils.isBlank(artifact)) {
